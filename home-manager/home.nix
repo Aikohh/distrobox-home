@@ -56,9 +56,6 @@
   programs.helix.defaultEditor = true;
 
   home.packages = with pkgs; [
-
-    # qmk # keyboard firmware utility
-
     dust # A better du (disk-use analyzer)
     dua # Interactive disk-use analyzer
     hyperfine # Benchmark timing tool
@@ -74,8 +71,11 @@
     valgrind-light # Debugging and profiling
     lldb # Debugging
     nil # An LSP for Nix
-    nodejs
-    wine-wayland
+    nodejs # JS
+    wine64 # Wine
+    vkd3d-proton # DX12 to VK
+    nss_latest # Required for some windows exes to run
+    xsel # Make system clipboard work
   ];
 
   home.sessionVariables = { };

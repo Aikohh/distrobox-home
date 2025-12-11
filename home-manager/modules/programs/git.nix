@@ -5,7 +5,6 @@
       user = {
         name  = "Aikoh";
         email = "127701152+Aikohh@users.noreply.github.com";
-        signingkey = "~/.ssh/id_ed25519.pub";
       };
       # Helix as default editor
       core.editor = "hx";

@@ -48,7 +48,7 @@
   programs.zoxide.enable = true; # A better cd
 
   programs.git.enable = true;
-  programs.git.delta.enable = true; # A better diff and pager for git
+  programs.delta.enableGitIntegration = true; # A better diff and pager for git
   programs.gh.enable = true; # GitHub CLI
   programs.gitui.enable = true; # Terminal UI for git
 
@@ -56,6 +56,8 @@
   programs.helix.defaultEditor = true;
 
   home.packages = with pkgs; [
+
+    # qmk # keyboard firmware utility
 
     dust # A better du (disk-use analyzer)
     dua # Interactive disk-use analyzer
@@ -72,7 +74,8 @@
     valgrind-light # Debugging and profiling
     lldb # Debugging
     nil # An LSP for Nix
-
+    nodejs
+    wine-wayland
   ];
 
   home.sessionVariables = { };

@@ -264,6 +264,7 @@
     steam-run # Run binaries in a FHS env
     presenterm # Presentations written in Markdown, rendered in-terminal
     opencode # AI coding assistant
+    ollama-vulkan # LLM hosting
 
     # System utilities
     file # Show file type

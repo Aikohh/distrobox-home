@@ -1,5 +1,5 @@
 {
-  description = "My Nix flake";
+  description = "Nix Home Manager flake for user configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -23,10 +23,29 @@
       system:
       let
         inherit (self) outputs;
+
+        # ====================================================================
+        # USER CONFIGURATION
+        # Adjust these values to match your system and preferences
+        # ====================================================================
+
+        # Your system username
         username = "aikoh";
+
+        # Your home directory path
+        # Change if your home directory is not at /home/<username>/distrobox-home
+        homeDirectory = "/home/${username}/distrobox-home";
+
+        # Git user configuration
+        gitUserName = "Aikoh";
+        gitUserEmail = "127701152+Aikohh@users.noreply.github.com";
+
+        # ====================================================================
+
       in
       {
         overlays = import ./overlays { inherit inputs; };
+
         homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
@@ -34,6 +53,9 @@
               inputs
               outputs
               username
+              homeDirectory
+              gitUserName
+              gitUserEmail
               ;
           };
           modules = [

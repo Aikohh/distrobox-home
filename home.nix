@@ -261,6 +261,9 @@
     hyperfine # Benchmark timing tool
     mask # Markdown documentation that's also command runner like Make
     mprocs # Run multiple commands show the output of each
+    steam-run # Run binaries in a FHS env
+    presenterm # Presentations written in Markdown, rendered in-terminal
+    opencode # AI coding assistant
 
     # System utilities
     file # Show file type
@@ -275,22 +278,6 @@
     # Nix tooling
     nixfmt # Nix formatter
     nil # An LSP for Nix
-
-    # Development
-    nodejs # JavaScript runtime
-    valgrind-light # Debugging and profiling
-    lldb # Debugger
-
-    # Gaming
-    steam-run # Run binaries in a FHS env
-    wine64 # Wine
-    vkd3d-proton # DX12 to Vulkan translation layer
-
-    # Presentations
-    presenterm # Presentations written in Markdown, rendered in-terminal
-
-    # AI coding assistant
-    opencode
   ];
 
   home.sessionVariables = { };

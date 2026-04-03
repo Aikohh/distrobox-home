@@ -62,7 +62,8 @@
 
   programs.bash.enable = true;
 
-  programs.nushell = lib.mkIf config.programs.nushell.enable {
+  programs.nushell = {
+    enable = true;
     settings = {
       show_banner = false;
       buffer_editor = "hx";
@@ -105,7 +106,8 @@
     shellWrapperName = "y";
   };
 
-  programs.zellij = lib.mkIf config.programs.zellij.enable {
+  programs.zellij = {
+    enable = true;
     settings = {
       show_startup_tips = false;
     };
@@ -115,7 +117,8 @@
   # VERSION CONTROL
   # ============================================================================
 
-  programs.git = lib.mkIf config.programs.git.enable {
+  programs.git = {
+    enable = true;
     settings = {
       user = {
         name = gitUserName;
@@ -136,7 +139,8 @@
   # TEXT EDITOR
   # ============================================================================
 
-  programs.helix = lib.mkIf config.programs.helix.enable {
+  programs.helix = {
+    enable = true;
     defaultEditor = true;
     settings = {
       theme = "catppuccin_mocha";

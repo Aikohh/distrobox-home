@@ -44,6 +44,7 @@
   programs.ripgrep.enable = true; # A better grep
   programs.ripgrep-all.enable = true; # ripgrep that works in container files (PDF, epub, etc...)
   programs.yazi.enable = true; # A better ranger
+  programs.yazi.shellWrapperName = "y";
   programs.zellij.enable = true; # A better tmux
   programs.zoxide.enable = true; # A better cd
 
@@ -74,8 +75,8 @@
     nodejs # JS
     wine64 # Wine
     vkd3d-proton # DX12 to VK
-    nss_latest # Required for some windows exes to run
     xsel # Make system clipboard work
+    opencode
   ];
 
   home.sessionVariables = { };

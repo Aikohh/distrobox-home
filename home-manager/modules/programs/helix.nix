@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   config = lib.mkIf config.programs.helix.enable {
     programs.helix.settings = {
@@ -10,7 +15,7 @@
         cursorcolumn = true;
         cursorline = true;
         mouse = true;
-        rulers = [80];
+        rulers = [ 80 ];
         text-width = 80;
         true-color = true;
       };
@@ -32,15 +37,18 @@
       };
 
       editor.statusline = {
-        center = ["file-name"];
-        left = ["mode" "spinner"];
+        center = [ "file-name" ];
+        left = [
+          "mode"
+          "spinner"
+        ];
         right = [
-            "diagnostics"
-            "selections"
-            "position"
-            "file-encoding"
-            "file-line-ending"
-            "file-type"
+          "diagnostics"
+          "selections"
+          "position"
+          "file-encoding"
+          "file-line-ending"
+          "file-type"
         ];
         separator = "|";
       };
@@ -83,22 +91,31 @@
         command = "${pkgs.llvmPackages_latest.clang-tools.override { enableLibcxx = false; }}/bin/clangd";
       };
 
-      language = [{
-        name = "nix";
-        scope = "source.nix";
-        injection-regex = "nix";
-        file-types = [ "nix" ];
-        shebangs = [ ];
-        comment-token = "#";
-        language-servers = [ "nil" "nixd" ];
-        indent = { tab-width = 2; unit = "  "; };
-        formatter = { command = "nixfmt"; };
-      }];
+      language = [
+        {
+          name = "nix";
+          scope = "source.nix";
+          injection-regex = "nix";
+          file-types = [ "nix" ];
+          shebangs = [ ];
+          comment-token = "#";
+          language-servers = [
+            "nil"
+            "nixd"
+          ];
+          indent = {
+            tab-width = 2;
+            unit = "  ";
+          };
+          formatter = {
+            command = "nixfmt";
+          };
+        }
+      ];
     };
 
     home.packages = with pkgs; [
-      nixfmt-rfc-style
+      nixfmt
     ];
   };
 }
-

@@ -27,7 +27,17 @@ nix flake show
 home-manager expire-generations -1
 
 # Collect garbage (remove unused nix store entries)
-nix-collect-garbage
+nix-collect-garbage --delete-old
+
+# Quick check a single .nix file for syntax errors
+nix-instantiate --parse ~/.nix/home.nix
+
+# Evaluate a single .nix file and print the result
+nix eval --file ~/.nix/home.nix --apply 'x: x.home.username'
+
+# Debug flake evaluation
+nix flake metadata
+nix log .#homeConfigurations.aikoh.activationPackage
 ```
 
 ## Linting and Formatting
@@ -38,6 +48,9 @@ nixfmt **/*.nix
 
 # Check formatting without modifying files
 nixfmt --check **/*.nix
+
+# Format a specific file
+nixfmt flake.nix
 
 # Validate flake outputs
 nix flake check
@@ -67,10 +80,6 @@ nix build .#homeConfigurations.aikoh.activationPackage
 ```nix
 {
   imports = [
-    # Modules first
-    ./modules
-
-    # Then individual files
     ./modules/dotfiles.nix
     ./modules/homeShell.nix
   ];
@@ -85,40 +94,6 @@ nix build .#homeConfigurations.aikoh.activationPackage
   config = lib.mkIf config.programs.<name>.enable {
     # Program-specific settings
   };
-}
-```
-
-### Overlays Pattern
-
-```nix
-{ inputs, ... }:
-{
-  stable-packages = final: prev: {
-    # Overlay content
-  };
-}
-```
-
-### Flake Output Pattern
-
-```nix
-{
-  description = "Description";
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # ...
-  };
-
-  outputs =
-    {
-      self,
-      nixpkgs,
-      # ...
-    }@inputs:
-    {
-      # outputs
-    };
 }
 ```
 
@@ -144,19 +119,16 @@ nix build .#homeConfigurations.aikoh.activationPackage
 
 - Use `#` for single-line comments
 - Place comments on their own line, above the relevant code
-- Use descriptive comments for non-obvious configurations:
-  ```nix
-  # Use clangd from clang-tools to get a clangd that can find std headers
-  command = "${pkgs.llvmPackages_latest.clang-tools}/bin/clangd";
-  ```
+- Use descriptive comments for non-obvious configurations
 
 ### Package Listings
 
 ```nix
 home.packages = with pkgs; [
-  # Group by function, add brief comments for non-obvious tools
+  # CLI utilities
   dust # A better du (disk-use analyzer)
   dua # Interactive disk-use analyzer
+  hyperfine # Benchmark timing tool
 ];
 ```
 
@@ -181,6 +153,7 @@ home.packages = with pkgs; [
 - Rely on Nix's lazy evaluation for catching errors at build time
 - Use `lib.assertMsg` for runtime assertions if needed
 - Avoid `builtins.trace` in production code
+- Check for null values with `lib.asserts.assertOneOf` or `lib.warnIfNull`
 
 ### Nixpkgs Overlays
 
@@ -191,10 +164,9 @@ home.packages = with pkgs; [
 ## Key Files
 
 - `flake.nix` - Flake entry point, defines inputs and outputs
-- `home-manager/home.nix` - Main configuration, imports all modules
-- `home-manager/modules/` - Modular program configurations
-- `home-manager/modules/programs/` - Individual program settings
+- `home.nix` - Main configuration, imports all modules
 - `overlays/default.nix` - Custom package overlays
+- `maskfile.md` - Task runner commands (build, update, clean)
 
 ## Dependencies
 
